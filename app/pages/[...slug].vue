@@ -33,7 +33,7 @@ const { data: page } = await useAsyncData(
                 fields: [
                     "*",
                     {
-                        seo_metadata: ["*"],
+                        seo_metadata: ["*", { mog_image: ["*"] }],
                         components: ["*"
                             ,
                             {
@@ -53,6 +53,14 @@ const { data: page } = await useAsyncData(
     }
 );
 
+useSeoMeta({
+    title: unref(page).seo_metadata.title,
+    ogTitle: unref(page).seo_metadata.title,
+    description: unref(page).seo_metadata.description,
+    ogDescription: unref(page).seo_metadata.description,
+    ogImage: `${$directus.url}assets/${unref(page).seo_metadata.mog_image.image}`,
+    twitterCard: `${$directus.url}assets/${unref(page).seo_metadata.mog_image.image}`,
+})
 
 
 // Error Handling

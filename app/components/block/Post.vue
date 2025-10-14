@@ -5,31 +5,10 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="flow-root">
-        <dl class="-my-3 divide-y divide-gray-200 text-sm">
-            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-                <dt class="font-medium text-gray-900">ID</dt>
-
-                <dd class="text-gray-700 sm:col-span-2">
-                    {{ props.data.typycode_post.id }}
-                </dd>
-            </div>
-
-            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-                <dt class="font-medium text-gray-900">Title</dt>
-
-                <dd class="text-gray-700 sm:col-span-2">
-                    {{ props.data.typycode_post.title }}
-                </dd>
-            </div>
-
-            <div class="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
-                <dt class="font-medium text-gray-900">Body</dt>
-
-                <dd class="text-gray-700 sm:col-span-2">
-                    {{ props.data.typycode_post.body }}
-                </dd>
-            </div>
-        </dl>
-    </div>
+    <article class="p-4 mb-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+        <h2 class="text-lg font-semibold mb-2">{{ props.data.typycode_post.title }}</h2>
+        <p class="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line">
+            {{ props.data.typycode_post.body }}
+        </p>
+    </article>
 </template>
