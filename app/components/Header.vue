@@ -6,6 +6,7 @@
             <NuxtLink v-for="meta in metadata" :key="meta.id" :to="meta.slug" class="hover:underline">
                 {{ meta.entry_title }}</NuxtLink>
         </nav>
+        <a :href="$directus.url.href" target="_blank">D</a>
     </header>
 </template>
 
