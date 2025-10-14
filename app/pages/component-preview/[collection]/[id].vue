@@ -1,26 +1,30 @@
 <template>
-
     <ComponentViewer v-if="component" :component="component" />
 </template>
 
 <script setup>
+definePageMeta({
+    layout: "component",
+});
+
 const { $directus, $readItem } = useNuxtApp();
 
 const { params } = useRoute();
 
 const { data: component } = await useAsyncData("component-preview", () => {
-    return $directus.request($readItem(params.collection, params.id, {
-        fields: [
-            "*",
-            {
-                CTA: ["*"],
-                image: ["*"],
-                internal_link: ["*"],
-            },
-        ],
-    }));
+    return $directus.request(
+        $readItem(params.collection, params.id, {
+            fields: [
+                "*",
+                {
+                    CTA: ["*"],
+                    image: ["*"],
+                    internal_link: ["*"],
+                },
+            ],
+        })
+    );
 });
-
 
 // Error Handling
 if (!unref(component)) {
