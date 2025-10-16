@@ -17,9 +17,9 @@ const { data: component } = await useAsyncData("component-preview", () => {
             fields: [
                 "*",
                 {
-                    CTA: ["*"],
-                    image: ["*"],
-                    internal_link: ["*"],
+                    image: ["*", { translations: ["*"] }],
+                    cta: ["*", { internal_link: ["*", { translations: ["*"] }] }, { translations: ["*"] }],
+                    translations: ["*"],
                 },
             ],
         })

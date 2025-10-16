@@ -7,8 +7,9 @@
 const { $directus, $readItems } = useNuxtApp();
 
 const { path } = useRoute();
+const { params } = useRoute();
 
-const languages_code = "en"; // default languages code for main lang pages
+const { locale: languages_code } = params;
 
 const pageFilter = computed(() => {
     let finalPath;
@@ -139,7 +140,7 @@ useSeoMeta({
     ogDescription: unref(page).seo_metadata.translations[0].description,
     // ogImage: `${$directus.url}assets/${unref(page).seo_metadata.mog_image.image}`,
     // twitterCard: `${$directus.url}assets/${unref(page).seo_metadata.mog_image.image}`,
-});
+})
 
 // Error Handling
 if (!unref(page)) {

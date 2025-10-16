@@ -8,5 +8,5 @@ const { data } = defineProps({
 </script>
 
 <template>
-    <NuxtImg :src="`${$directus.url}assets/${data.image}`" :title="data.title" :alt="data.description" />
+    <NuxtImg :src="`${$directus.url}assets/${data.image_link}`" :title="data.title" :alt="data.description" />
 </template>

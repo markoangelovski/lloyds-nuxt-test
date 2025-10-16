@@ -3,8 +3,8 @@ const componentMap = {
     block_post: resolveComponent("BlockPost"),
     block_content1: resolveComponent("BlockContent1"),
 
-    button_standard: resolveComponent("DetailButton"),
-    image: resolveComponent("DetailImage"),
+    btn_std_1: resolveComponent("DetailButton"),
+    image_hoc: resolveComponent("DetailImage"),
 };
 
 const { params } = useRoute();
