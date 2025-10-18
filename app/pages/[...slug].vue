@@ -139,21 +139,7 @@ if (!unrefPage) {
     });
 }
 
-let routeRules = {};
-
-// Fully dynamic: render_type === "ssr", max_age === 0
-if (
-    unrefPage.seo_metadata.render_type === "ssr" &&
-    !unrefPage.seo_metadata.max_age
-)
-    routeRules = { ssr: true };
-
-// Dynamic with cache: render_type === "ssr", max_age > 0
-if (
-    unrefPage.seo_metadata.render_type === "ssr" &&
-    unrefPage.seo_metadata.max_age
-)
-    routeRules = { swr: false, maxAge: unrefPage.seo_metadata.max_age };
+let routeRules = { ssr: true };
 
 // Fully static: render_type === "static", max_age === 0
 if (
@@ -167,11 +153,9 @@ if (
     unrefPage.seo_metadata.render_type === "static" &&
     unrefPage.seo_metadata.max_age
 )
-    routeRules = { swr: false, maxAge: unrefPage.seo_metadata.max_age };
+    routeRules = { isr: unrefPage.seo_metadata.max_age };
 
-defineRouteRules({
-    isr: 30
-});
+defineRouteRules(routeRules);
 
 useHead({
     htmlAttrs: {
