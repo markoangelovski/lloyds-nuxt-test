@@ -170,7 +170,7 @@ if (
     routeRules = { swr: false, maxAge: unrefPage.seo_metadata.max_age };
 
 defineRouteRules({
-    isr: 60
+    isr: 30
 });
 
 useHead({
