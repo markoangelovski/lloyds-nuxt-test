@@ -1,14 +1,17 @@
 <template>
     <PageBuilder v-if="page" :page="page" />
-    <!-- {{ console.log("Page: ", JSON.stringify(page, null, 2)) }} -->
+    <!-- {{ console.log("Page [/slug]: ", JSON.stringify(page, null, 2)) }} -->
 </template>
 
 <script setup>
+import { directusLangs } from "../../utils/data/directusLangs.ts";
 const { $directus, $readItems } = useNuxtApp();
 
 const { path } = useRoute();
 
-const languages_code = "en"; // default languages code for main lang pages
+const lang = path.split("/")[1];
+
+const languages_code = directusLangs.includes(lang) ? lang : "en"; // default languages code for main lang pages
 
 const pageFilter = computed(() => {
     let finalPath;
@@ -126,11 +129,19 @@ const { data: page } = await useAsyncData(
     }
 );
 
+// Error Handling
+if (!unref(page)) {
+    throw createError({
+        statusCode: 404,
+        statusMessage: `Page Not Found: ${JSON.stringify(filter, null, 2)}`,
+    });
+}
+
 useHead({
     htmlAttrs: {
         lang: languages_code,
-    }
-})
+    },
+});
 
 useSeoMeta({
     title: unref(page).seo_metadata.translations[0].title,
@@ -140,9 +151,4 @@ useSeoMeta({
     // ogImage: `${$directus.url}assets/${unref(page).seo_metadata.mog_image.image}`,
     // twitterCard: `${$directus.url}assets/${unref(page).seo_metadata.mog_image.image}`,
 });
-
-// Error Handling
-if (!unref(page)) {
-    throw createError({ statusCode: 404, statusMessage: "Page Not Found" });
-}
 </script>
