@@ -10,7 +10,7 @@ on:
       - master # change if your production branch differs
 
 jobs:
-  deploy:
+  Build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,20 +22,14 @@ jobs:
         with:
           node-version: "22"
 
-      # - name: Install dependencies
-      #   run: npm ci
-
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
       - name: Pull Vercel Environment Info
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
-      # - name: Check vercel project settings
+      # - name: Check vercel project settings # Use this to get the org id and project id
       #   run: cat ~/work/lloyds-nuxt-test/lloyds-nuxt-test/.vercel/project.json
-
-      # - name: Build (optional if Vercel builds remotely)
-      #   run: npm run build
 
       - name: Vercel Build Project Artifacts # https://youtu.be/FHVaWZjWec4?t=254
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}

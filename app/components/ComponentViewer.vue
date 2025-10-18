@@ -1,13 +1,12 @@
 <script setup>
-import { defineAsyncComponent } from 'vue';
-
+const { params } = useRoute();
 const props = defineProps({
-    page: Object,
+    component: Object,
 });
 
 // Import all root and block components
-const rootModules = import.meta.glob('~/components/*.vue');
-const blockModules = import.meta.glob('~/components/block/*.vue');
+const rootModules = import.meta.glob("~/components/*.vue");
+// const blockModules = import.meta.glob('~/components/block/*.vue');
 
 /**
  * Convert Directus collection name to PascalCase component name
@@ -15,46 +14,43 @@ const blockModules = import.meta.glob('~/components/block/*.vue');
  */
 const toPascalCase = (str) =>
     str
-        .split('_')
+        .split("_")
         .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
-        .join('');
+        .join("");
 
+const Fallback = {
+    template: "<div>component not found</div>",
+};
+
+const cache = new Map();
 /**
  * Resolve async component dynamically based on collection name
  */
 const getAsyncComponent = (collection) => {
-    if (!collection) return null;
+    if (!collection) return Fallback;
+    if (cache.has(collection)) return cache.get(collection);
 
     const pascalName = toPascalCase(collection);
 
-    // Check in block folder first
-    const blockKey = Object.keys(blockModules).find((key) =>
+    const match = Object.keys(rootModules).find((key) =>
         key.endsWith(`${pascalName}.vue`)
     );
-    if (blockKey) return defineAsyncComponent(blockModules[blockKey]);
 
-    // Check in root folder
-    const rootKey = Object.keys(rootModules).find((key) =>
-        key.endsWith(`${pascalName}.vue`)
-    );
-    if (rootKey) return defineAsyncComponent(rootModules[rootKey]);
+    const component = match ? defineAsyncComponent(rootModules[match]) : Fallback;
 
-    return null; // Component not found
+    cache.set(collection, component);
+    return component;
 };
 </script>
 
 <template>
+    <!-- {{ console.log(component) }} -->
     <div id="content">
-        <template v-for="component in page.components" :key="component.id">
-            <!-- Use client:lazy to hydrate only when visible -->
-            <component v-if="component && component.collection" :is="getAsyncComponent(component.collection)"
-                :data="component.item" client:lazy>
-                <!-- fallback content while loading -->
-                <template #placeholder>
-                    <div class="component-loading">Loading...</div>
-                </template>
-            </component>
-        </template>
+        <component v-if="component" :is="getAsyncComponent(params.collection)" :data="component">
+            <template #fallback>
+                <div class="component-loading">Loading...</div>
+            </template>
+        </component>
     </div>
 </template>
 
