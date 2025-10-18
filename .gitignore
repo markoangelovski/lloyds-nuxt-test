@@ -22,3 +22,6 @@ logs
 .env
 .env.*
 !.env.example
+
+# Fetched data
+utils/data/*

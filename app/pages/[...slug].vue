@@ -4,7 +4,7 @@
 </template>
 
 <script setup>
-import { directusLangs } from "../../utils/data/directusLangs.ts";
+import { directusLangs } from "../../utils/data/directusLangs.js";
 const { $directus, $readItems } = useNuxtApp();
 
 const { path } = useRoute();
@@ -135,27 +135,10 @@ const unrefPage = unref(page);
 if (!unrefPage) {
     throw createError({
         statusCode: 404,
-        statusMessage: `Page Not Found: ${JSON.stringify(filter, null, 2)}`,
+        statusMessage: `Page Not Found`,
     });
 }
 
-let routeRules = { ssr: true };
-
-// Fully static: render_type === "static", max_age === 0
-if (
-    unrefPage.seo_metadata.render_type === "static" &&
-    !unrefPage.seo_metadata.max_age
-)
-    routeRules = { isr: true };
-
-// Static with cache: render_type === "static", max_age > 0
-if (
-    unrefPage.seo_metadata.render_type === "static" &&
-    unrefPage.seo_metadata.max_age
-)
-    routeRules = { isr: unrefPage.seo_metadata.max_age };
-
-defineRouteRules(routeRules);
 
 useHead({
     htmlAttrs: {
@@ -164,11 +147,11 @@ useHead({
 });
 
 useSeoMeta({
-    title: unref(page).seo_metadata.translations[0].title,
-    ogTitle: unref(page).seo_metadata.translations[0].title,
-    description: unref(page).seo_metadata.translations[0].description,
-    ogDescription: unref(page).seo_metadata.translations[0].description,
-    // ogImage: `${$directus.url}assets/${unref(page).seo_metadata.mog_image.image}`,
-    // twitterCard: `${$directus.url}assets/${unref(page).seo_metadata.mog_image.image}`,
+    title: unrefPage.seo_metadata.translations[0].title,
+    ogTitle: unrefPage.seo_metadata.translations[0].title,
+    description: unrefPage.seo_metadata.translations[0].description,
+    ogDescription: unrefPage.seo_metadata.translations[0].description,
+    // ogImage: `${$directus.url}assets/${unrefPage.seo_metadata.mog_image.image}`,
+    // twitterCard: `${$directus.url}assets/${unrefPage.seo_metadata.mog_image.image}`,
 });
 </script>

@@ -8,7 +8,9 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "getlangs": "node utils/getDirectusLangs.js"
+    "getlangs": "node utils/getDirectusLangs.js",
+    "createrouterules": "node utils/createRouteRules.js",
+    "prebuild": "npm run getlangs && npm run createrouterules"
   },
   "dependencies": {
     "@directus/sdk": "^20.1.0",
