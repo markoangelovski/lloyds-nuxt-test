@@ -47,7 +47,7 @@ try {
   });
 
   const template = `/**
-* NOTICE: This file is generated automatically using the /utils/directusUtils.js script.
+* NOTICE: This file is generated automatically using the ${__filename} script.
 */
 
 export const routeRules = ${JSON.stringify(routeRules, null, 2)}`;
