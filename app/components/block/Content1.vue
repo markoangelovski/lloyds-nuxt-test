@@ -24,12 +24,12 @@ const { data } = defineProps({
                 </p>
 
                 <div class="flex flex-col justify-center lg:flex-row">
-                    <DetailButton v-if="data.cta" :data="data.cta" />
+                    <Button v-if="data.cta" :data="data.cta" />
                 </div>
             </div>
 
             <div class="w-full lg:w-1/3 lg:max-w-lg md:w-1/2">
-                <DetailImage v-if="data.image" :data="data.image.translations[0]" />
+                <Image v-if="data.image" :data="data.image.translations[0]" />
             </div>
         </div>
     </section>
