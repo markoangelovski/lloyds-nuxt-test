@@ -4,6 +4,7 @@
 </template>
 
 <script setup>
+import { TrimDirectusObj } from "~~/utils/directusUtils.js";
 import { directusLangs } from "../../utils/data/directusLangs.js";
 const { $directus, $readItems } = useNuxtApp();
 
@@ -124,7 +125,7 @@ const { data: page } = await useAsyncData(
     },
     {
         transform: (data) => {
-            return data[0];
+            return TrimDirectusObj(data[0]);
         },
     }
 );

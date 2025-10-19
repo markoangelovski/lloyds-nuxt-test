@@ -14,6 +14,8 @@
 </template>
 
 <script setup lang="ts">
+import { TrimDirectusObj } from '~~/utils/directusUtils';
+
 const { $directus, $readItems } = useNuxtApp();
 const { path } = useRoute();
 
@@ -27,6 +29,8 @@ const { data: metadata } = await useAsyncData(
             })
         );
     },
-    { transform: (data) => data[0] }
+    {
+        transform: (data) => { return TrimDirectusObj(data[0]); },
+    }
 );
 </script>
