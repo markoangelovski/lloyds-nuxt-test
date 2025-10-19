@@ -34,5 +34,5 @@ jobs:
       - name: Vercel Build Project Artifacts # https://youtu.be/FHVaWZjWec4?t=254
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
 
-      - name: Deploy to Vercel Production
+      - name: Deploy to Vercel Preview
         run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
