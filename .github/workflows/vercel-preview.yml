@@ -7,7 +7,7 @@ name: Deploy to Vercel (Preview)
 on:
   push:
     branches-ignore:
-      - master # change if your production branch differs
+      - master
 
 jobs:
   Build-and-deploy:
