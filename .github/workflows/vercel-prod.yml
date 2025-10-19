@@ -5,11 +5,7 @@ name: Deploy to Vercel (Production)
 #   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
 
 on:
-  pull_request:
-    types:
-      - closed
-    branches:
-      - master
+  workflow_dispatch:
 
 jobs:
   Build-and-deploy:
