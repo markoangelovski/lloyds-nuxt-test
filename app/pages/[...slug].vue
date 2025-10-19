@@ -8,6 +8,7 @@
 import { TrimDirectusObj } from "~~/utils/directusUtils.js";
 import { directusLangs } from "../../utils/data/directusLangs.js";
 const { $directus, $readItems, $readItem } = useNuxtApp();
+const config = useRuntimeConfig();
 
 const { path, query } = useRoute();
 
@@ -33,7 +34,7 @@ const pageFilter = computed(() => {
 });
 
 const statusFilter =
-  process.env.NODE_ENV === "production"
+  config.public.env === "production"
     ? { _eq: "published" }
     : { _in: ["draft", "published"] };
 

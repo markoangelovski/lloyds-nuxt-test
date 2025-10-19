@@ -1,7 +1,6 @@
 name: Deploy to Vercel (Preview)
 
 env:
-  NODE_ENV: development
 #   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 #   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
 
@@ -29,10 +28,6 @@ jobs:
 
       # - name: Check vercel project settings # Use this to get the org id and project id
       #   run: cat ~/work/lloyds-nuxt-test/lloyds-nuxt-test/.vercel/project.json
-
-      - name: Check NODE_ENV # Use this to get the org id and project id
-        run: echo "NODE_ENV dollar sign is $NODE_ENV"
-          / echo "NODE_ENV mustache is ${{ env.NODE_ENV }}"
 
       - name: Vercel Build Project Artifacts # https://youtu.be/FHVaWZjWec4?t=254
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}

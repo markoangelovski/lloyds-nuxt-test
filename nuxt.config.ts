@@ -14,4 +14,9 @@ export default defineNuxtConfig({
   nitro: {
     preset: "vercel", // For deployment on Vercel, vercel build expects /dist folder by default. Nuxt creates /.output folder.
   },
+  runtimeConfig: {
+    public: {
+      env: process.env.NUXT_ENVIRONMENT || "production",
+    },
+  },
 });
