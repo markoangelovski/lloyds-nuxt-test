@@ -1,4 +1,5 @@
 <template>
+  {{ statusFilter }}
   <PageBuilder v-if="page" :page="page" />
   <!-- {{ console.log("Page [/slug]: ", JSON.stringify(page, null, 2)) }} -->
 </template>
