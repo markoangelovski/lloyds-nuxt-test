@@ -6,11 +6,6 @@ name: Deploy to Vercel (Preview)
 
 on:
   workflow_dispatch:
-    inputs:
-      branch:
-        description: "Select the branch to deploy"
-        required: true
-        default: preview
 
 jobs:
   Build-and-deploy:
@@ -18,9 +13,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.inputs.branch }}        
+        uses: actions/checkout@v3 
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
