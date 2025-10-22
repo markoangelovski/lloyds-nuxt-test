@@ -24,7 +24,7 @@ try {
   console.log(`Directus languages fetched: ${langs}`);
 
   const template = `/**
-* NOTICE: This file is generated automatically using the /utils/getDirectusLangs.js script.
+* NOTICE: This file is populated automatically using the /utils/getDirectusLangs.js script.
 */
    
 export const directusLangs = ${langs}`;
