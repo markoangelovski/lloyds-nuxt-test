@@ -18,7 +18,7 @@ const createRouteRules = async () => {
   try {
     if (process.env.NUXT_ENVIRONMENT !== "production") {
       console.log(
-        `Building in env: ${process.env.NUXT_ENVIRONMENT}, skipping build the Route Rules.`
+        `Building in env: ${process.env.NUXT_ENVIRONMENT}, skipping building Route Rules.`
       );
       return;
     }
@@ -58,7 +58,9 @@ const createRouteRules = async () => {
 * NOTICE: This file is generated automatically using the ${__filename} script.
 */
 
-export const routeRules = ${JSON.stringify(routeRules, null, 2)}`;
+const routeRules = ${JSON.stringify(routeRules, null, 2)}
+
+export default routeRules;`;
 
     fs.writeFileSync(`${dataPath}/routeRules.ts`, template);
   } catch (error) {

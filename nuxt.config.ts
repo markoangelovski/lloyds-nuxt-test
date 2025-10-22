@@ -1,5 +1,5 @@
 import tailwindcss from "@tailwindcss/vite";
-import { routeRules } from "./utils/data/routeRules";
+import routeRules from "./utils/data/routeRules";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
