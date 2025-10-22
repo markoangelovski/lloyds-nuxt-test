@@ -14,45 +14,56 @@ const __dirname = dirname(__filename);
 
 const dataPath = resolve(__dirname, "data");
 
-try {
-  console.log("Fetching Pages metadata...");
-  const metaData = await directus.request(
-    readItems("seo_metadata", {
-      fields: [
-        "render_type",
-        "max_age",
-        { translations: ["languages_code", "slug"] },
-      ],
-    })
-  );
-  const routeRules = {};
-
-  metaData.forEach((page) => {
-    page.translations.forEach((translation) => {
-      routeRules[translation.slug] = {};
-
-      if (page.render_type !== "static") {
-        routeRules[translation.slug]["ssr"] = true;
-      } else if (!page.max_age) {
-        routeRules[translation.slug]["isr"] = true;
-      } else {
-        routeRules[translation.slug]["isr"] = page.max_age;
-      }
+const createRouteRules = async () => {
+  try {
+    if (process.env.NUXT_ENVIRONMENT !== "production") {
       console.log(
-        "Generating route rule for slug:",
-        translation.slug,
-        routeRules[translation.slug]
+        `Building in env: ${process.env.NUXT_ENVIRONMENT}, skipping build the Route Rules.`
       );
-    });
-  });
+      return;
+    }
 
-  const template = `/**
+    console.log("Fetching Pages metadata...");
+    const metaData = await directus.request(
+      readItems("seo_metadata", {
+        fields: [
+          "render_type",
+          "max_age",
+          { translations: ["languages_code", "slug"] },
+        ],
+      })
+    );
+    const routeRules = {};
+
+    metaData.forEach((page) => {
+      page.translations.forEach((translation) => {
+        routeRules[translation.slug] = {};
+
+        if (page.render_type !== "static") {
+          routeRules[translation.slug]["ssr"] = true;
+        } else if (!page.max_age) {
+          routeRules[translation.slug]["isr"] = true;
+        } else {
+          routeRules[translation.slug]["isr"] = page.max_age;
+        }
+        console.log(
+          "Generating route rule for slug:",
+          translation.slug,
+          routeRules[translation.slug]
+        );
+      });
+    });
+
+    const template = `/**
 * NOTICE: This file is generated automatically using the ${__filename} script.
 */
 
 export const routeRules = ${JSON.stringify(routeRules, null, 2)}`;
 
-  fs.writeFileSync(`${dataPath}/routeRules.ts`, template);
-} catch (error) {
-  console.error("Error creating Route Rules: ", error);
-}
+    fs.writeFileSync(`${dataPath}/routeRules.ts`, template);
+  } catch (error) {
+    console.error("Error creating Route Rules: ", error);
+  }
+};
+
+await createRouteRules();
