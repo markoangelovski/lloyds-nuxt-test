@@ -1,5 +1,5 @@
 import tailwindcss from "@tailwindcss/vite";
-import routeRules from "./utils/data/routeRules";
+import { routeRules } from "./utils/data/routeRules";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  routeRules: routeRules || {},
+  routeRules,
   nitro: {
     preset: "vercel", // For deployment on Vercel, vercel build expects /dist folder by default. Nuxt creates /.output folder.
   },

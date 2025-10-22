@@ -55,12 +55,10 @@ const createRouteRules = async () => {
     });
 
     const template = `/**
-* NOTICE: This file is generated automatically using the ${__filename} script.
+* NOTICE: This file is populated automatically using the /utils/createRouteRules.js script.
 */
 
-const routeRules = ${JSON.stringify(routeRules, null, 2)}
-
-export default routeRules;`;
+export const routeRules = ${JSON.stringify(routeRules, null, 2)}`;
 
     fs.writeFileSync(`${dataPath}/routeRules.ts`, template);
   } catch (error) {
