@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  routeRules,
+  routeRules: routeRules || {},
   nitro: {
     preset: "vercel", // For deployment on Vercel, vercel build expects /dist folder by default. Nuxt creates /.output folder.
   },
