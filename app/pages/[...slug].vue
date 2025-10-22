@@ -1,5 +1,11 @@
 <template>
-  {{ statusFilter }}
+  {{
+    {
+      statusFilter,
+      renderType: page.seo_metadata.render_type,
+      maxAge: page.seo_metadata.max_age,
+    }
+  }}
   <PageBuilder v-if="page" :page="page" />
   <!-- {{ console.log("Page [/slug]: ", JSON.stringify(page, null, 2)) }} -->
 </template>
